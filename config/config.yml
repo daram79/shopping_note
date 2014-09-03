@@ -1,0 +1,8 @@
+development:
+  host: 'http://localhost:3000'
+  websocket_host: 'http://localhost:9292/faye'
+
+#production:
+#  host: 'http://st.amazers.co.kr'
+#  websocket_host: 'http://st.amazers.co.kr:9292/faye'
+

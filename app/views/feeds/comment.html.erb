@@ -1,0 +1,16 @@
+<% @comments.each do |comment| %>
+  <div class="" style="background-color: yellow;">
+  	<span><%= image_tag comment.user.profile_photos[0].image.thumb.url %></span>
+  	<span><%=comment.user.nick%></span>
+  	<span><%=comment.content%></span>
+  </div>
+<% end %>
+
+<div class="" style="position: fixed; bottom: 0; left: 0; width: 100%;">
+	<div class="" style="float: left;width: 80%;">
+		<textarea class="input_box" style="margin: 0; width: 100%;height: 50px;"></textarea>
+	</div>
+	<div class="" style="float: right;width: 17%;height: 55px;line-height: 55px;">
+		<input class="send_comment" style="width: 100%; -webkit-appearance: none; height: 55px;" data-feed-id="<%=@feed.id%>" type="button" value="send" />
+	</div>
+</div>

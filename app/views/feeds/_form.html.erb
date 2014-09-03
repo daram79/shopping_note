@@ -1,0 +1,71 @@
+<div data-role="header" data-position="fixed"> 
+  <h1>Page Title</h1>
+  <a href="<%=feeds_path%>" data-icon="back">back</a>
+  <a id="post_feed" data-icon="check">게시</a>
+</div>
+<div data-role="content" style="padding: 0;">
+	<%= form_for(@feed) do |f| %>
+	  <% if @feed.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@feed.errors.count, "error") %> prohibited this feed from being saved:</h2>
+	      <ul>
+	      <% @feed.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	  <%= f.hidden_field :user_id, value: current_user.id %>
+	  <div><%= f.collection_select :feed_type_id, @feed_types, :id, :name %></div>
+	  <div class="div_new_feed_area"><%= f.text_area :content %></div>
+	  <div style="visibility: hidden;margin-top: -32px;">
+	    <%= f.fields_for :feed_photos do |profile_photo| %>
+	      <%= profile_photo.file_field :image, accept: "image/*" %>
+	    <% end %>
+	  </div>
+	<% end %>
+</div>
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <a id="add_photo" href="#" data-icon="gear" >사진</a>
+</div>
+
+<script>
+	var notice = "<%=flash[:notice]%>";
+    if( notice != ""){
+    	alert(notice);
+    }
+	
+	
+	$( "#post_feed" ).click(function() {
+	  $("#new_feed").submit();
+	});
+	
+	$( "#add_photo" ).click(function() {
+	  $( "#feed_feed_photos_attributes_0_image" ).trigger( "click" );
+	});
+	
+	$('#feed_feed_photos_attributes_0_image').change(function (e) {
+	    $("#add_photo").attr("class", "ui-link ui-btn ui-icon-gear ui-btn-icon-left ui-shadow ui-corner-all");
+	});
+	
+	
+	
+</script>
+<style>
+	body{
+		overflow: hidden;
+	}
+	.ui-select {
+		margin: 0 !important;
+	}
+	.ui-input-text, .ui-input-search {
+		margin: 0 !important;
+	}
+	
+	
+	#feed_content{
+		height: 200px !important;
+		overflow-y: scroll;}
+	
+</style>

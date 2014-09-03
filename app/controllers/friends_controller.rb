@@ -1,0 +1,21 @@
+class FriendsController < ApplicationController
+  def index
+    friend_ids = current_user.user_relations.pluck(:friend_user_id)
+    ids = friend_ids + current_user.id.to_s.split
+    @users = User.where("id not in(?)", ids)
+  end
+
+  def show
+  end
+
+  def edit
+  end
+
+  def new
+  end
+  
+  def add
+    UserRelation.create(user_id: current_user.id, friend_user_id: params[:id], is_friend: false)
+    redirect_to action: "index"
+  end
+end

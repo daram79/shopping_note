@@ -1,0 +1,7 @@
+<h1>추천친구</h1>
+<% @users.each do |user| %>
+<div>
+	<span><%=user.nick%></span>
+	<span><%= link_to '친구추가', add_friend_path(user), method: :post, style: "text-decoration: none;" %></span>
+</div>
+<% end %>
