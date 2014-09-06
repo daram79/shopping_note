@@ -7,8 +7,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(email: "shimtong1004@gmail.com", nick: "admin", birthday: "1979-08-15", password: 'ejrdud1004', password_confirmation: 'ejrdud1004')
-User.create(email: "mayin1q84@gmail.com", nick: "admin2", birthday: "1979-07-26", password: 'ejrdud1004', password_confirmation: 'ejrdud1004')
+#User.create(email: "shimtong1004@gmail.com", nick: "admin", birthday: "1979-08-15", password: 'ejrdud1004', password_confirmation: 'ejrdud1004')
+#User.create(email: "mayin1q84@gmail.com", nick: "admin2", birthday: "1979-07-26", password: 'ejrdud1004', password_confirmation: 'ejrdud1004')
 FeedType.create(name: "공개")
 FeedType.create(name: "친구공개")
 FeedType.create(name: "비공개")
