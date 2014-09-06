@@ -3,31 +3,29 @@ development:
   encoding: utf8
   pool: 100
   timeout: 5000
-  database: shopping_note_dev
+  database: sns_dev
   username: root
   password: 
   reconnect: true
   host: localhost
-  socket: /tmp/mysql.sock
 
 test:
   adapter: mysql2
   encoding: utf8
   pool: 100
   timeout: 5000
-  database: shopping_note_test
+  database: sns_test
   username: root
   password: 
   reconnect: true
   host: localhost
-  socket: /tmp/mysql.sock
 
 production:
   adapter: mysql2
   encoding: utf8
   pool: 100
   timeout: 5000
-  database: shopping_note
+  database: sns
   username: root
   password: 
   reconnect: true

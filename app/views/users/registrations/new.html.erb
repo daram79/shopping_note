@@ -1,30 +1,40 @@
-<h2>Sign up</h2>
-
-<%= form_for([resource_name, resource.with_profile_photo ], url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-  
-  <div><%= f.label :nick %><br />
-  <%= f.text_field :nick %></div>
-
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-    
-  <div>생일<br />
-    <%= f.date_select :birthday, :use_month_numbers => true, :start_year => 1900, :date_separator => '-' %></div>
-  
-  <div>프로필 사진:
-  	<%= f.fields_for :profile_photos do |profile_photo| %>
-	  <%= profile_photo.file_field :image %>
+<div data-role="header" data-position="fixed">
+	<h2>Sign up</h2>
+</div>
+<div data-role="content" style="padding: 0;">
+	<%= form_for([resource_name, resource.with_profile_photo ], url: registration_path(resource_name)) do |f| %>
+	  <%= devise_error_messages! %>
+	
+	  <div><%= f.label :email %><br />
+	  <%= f.email_field :email, autofocus: true %></div>
+	  
+	  <div><%= f.label :nick %><br />
+	  <%= f.text_field :nick %></div>
+	
+	  <div><%= f.label :password %><br />
+	    <%= f.password_field :password, autocomplete: "off" %></div>
+	
+	  <div><%= f.label :password_confirmation %><br />
+	    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+	    
+	  <div>생일<br />
+	    <%= f.date_select :birthday, :use_month_numbers => true, :start_year => 1900, :date_separator => '-' %></div>
+	  
+	  <div>프로필 사진:
+	  	<%= f.fields_for :profile_photos do |profile_photo| %>
+		  <%= profile_photo.file_field :image, accept: "image/*" %>
+		<% end %>
+	  </div>
+	  <div><input id="create_user" type="button" value="Sign up" /></div>
 	<% end %>
-  </div>
-
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
-
+</div>
 <%= render "users/shared/links" %>
+
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false"></div>
+
+<script>
+	$( "#create_user" ).click(function() {
+	  $("#new_user").submit();
+	});
+</script>

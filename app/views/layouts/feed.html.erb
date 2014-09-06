@@ -28,13 +28,13 @@
 	  	<div data-role="navbar">
 	  		<ul>
 	  			<li><a href="#" class="ui-btn-active" data-icon="grid">feed</a></li>
-	  			<li><a href="#" data-icon="heart">heart</a></li>
+	  			<li><a id="heart" href="#" data-icon="heart">heart</a></li>
 	  			<li>
 	  				<!--a href="/feeds/write.html" data-icon="plus">heart</a-->
 	  				<%= link_to 'write', new_feed_path, remote: true , data:{icon: 'plus' } %>
 	  			</li>
-	  			<li><a href="#" data-icon="search">search</a></li>
-	  			<li><a href="#" data-icon="gear">setting</a></li>
+	  			<li><a id="search" href="#" data-icon="search">search</a></li>
+	  			<li><a id="setting" href="#" data-icon="gear">setting</a></li>
 	  		</ul>
 	  	</div>
 	  </div>

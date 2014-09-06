@@ -1,4 +1,4 @@
-<div data-role="header"><h1>DARAM SNS</h1></div>
+<div data-role="header"><h1>Shopping Note</h1></div>
 <div data-role="content">
   <!--% if @friend_ids.blank? %-->
 	<div><%= link_to '추천친구 보기', friends_path, style: "text-decoration: none;" %></div>
@@ -10,9 +10,9 @@
 			<% if feed.user.profile_photos[0] %>
 			  <div class="user_photo" style="float: left;"><%= image_tag feed.user.profile_photos[0].image.thumb.url %></div>
 			<% end %>
-			  <div class="user_nick" style="float: left; padding: 12px 0 12px 5px;"><%=feed.user.nick%></div>
+			  <div class="user_nick" style="float: left; padding: 6px 0 12px 5px;"><%=feed.user.nick%></div>
 			<% if feed.user_id == current_user.id %>
-			  <div class="user_delete" style="float: right; padding: 12px 0 12px 0;"><%= link_to '삭제', comment_feed_path(feed) %></div>
+			  <div class="user_delete" style="float: right; padding: 6px 0 12px 0;"><%= link_to '삭제', comment_feed_path(feed) %></div>
 			<% end %>
 		</div>
 		<div class="content" style="clear: both;"><%=raw hbr(feed.content) %></div>
@@ -26,8 +26,8 @@
       	<span style="padding-left: 5px;">like: </span><span class="like_cnt"><%=feed.likes.count%></span>
       </div>
       <div class="like_comment_box" style="margin:0 10px;height: 30px; line-height: 30px;">
-      	<div class="" style="float: left; margin-left: 5px;"><span class="feed_like" data-feed-id="<%=feed.id%>" href="">like</span></div>
-      	<div class="" style="float: left; margin-left: 5px;">
+      	<div class="" style="float: left; margin-left: 5px;"><span class="feed_like" style="color:red; text-decoration: underline;" data-feed-id="<%=feed.id%>" href="">like</span></div>
+      	<div class="" style="float: left; margin-left: 10px;">
       		<%= link_to 'comment', comment_feed_path(feed) %>
 		</div>
 	  </div>
@@ -41,12 +41,12 @@
 	  <li>
 	  	<%= link_to 'feed', feeds_path, class: "ui-btn-active", data:{icon: 'grid' } %>
 	  </li>
-	  <li><a href="#" data-icon="heart">heart</a></li>
+	  <li><a id="heart" href="#" data-icon="heart">heart</a></li>
 	  <li>
 	  	<%= link_to 'write', new_feed_path, data:{icon: 'plus' } %>
 	  </li>
-	  <li><a href="#" data-icon="search">search</a></li>
-      <li><a href="#" data-icon="gear">setting</a></li>
+	  <li><a id="search" href="#" data-icon="search">search</a></li>
+      <li><a id="setting" href="#" data-icon="gear">setting</a></li>
     </ul>
   </div>
 </div>
