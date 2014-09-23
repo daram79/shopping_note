@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   
+  resources :settings do
+    collection do
+      get "edit_profile_photo"
+    end
+  end
+  
   resources :friends do
     member do
       post "add"

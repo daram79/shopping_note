@@ -55,7 +55,7 @@
 <script>
   $(function() {  
   //var faye = new Faye.Client('http://localhost:9292/faye');  
-  var faye = new Faye.Client('http://192.168.0.35:9292/faye');
+  var faye = new Faye.Client(<%=CONFIG['websocket_host']%>);
   faye.subscribe('/feeds/<%=current_user.id%>', function (data) {
   	var like_count = parseInt( $("#feed_container_" + data.feed_id + " .like_cnt").text());
   	$("#feed_container_" + data.feed_id + " .like_cnt").text(like_count + data.like_count);

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140817080043) do
+ActiveRecord::Schema.define(version: 20140922162236) do
 
   create_table "be_requested_friends", force: true do |t|
     t.integer  "user_id"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20140817080043) do
     t.integer  "feed_id"
     t.integer  "user_id"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_data", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "feed_id"
+    t.string   "feed_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,14 +63,6 @@ ActiveRecord::Schema.define(version: 20140817080043) do
     t.string   "like_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "posts", force: true do |t|
-    t.string   "name"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image"
   end
 
   create_table "profile_photos", force: true do |t|

@@ -31,11 +31,7 @@ $ ->
     alert("준비중인 기능입니다.");
     
   $(document).on "click", "#search", (e) ->
-    alert("준비중인 기능입니다.");
-    
-  $(document).on "click", "#setting", (e) ->
-    alert("준비중인 기능입니다.");
-    
+    alert("준비중인 기능입니다.");  
     
     
     

@@ -1,0 +1,23 @@
+<h1>설정 변경</h1>
+
+<table>
+	<tr><td><%= link_to '프로필 사진 변경', edit_profile_photo_settings_path %></td></tr>
+</table>
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+	<ul>
+	  <li>
+	  	<%= link_to 'feed', feeds_path, data:{icon: 'grid' } %>
+	  </li>
+	  <li><a id="heart" href="#" data-icon="heart">heart</a></li>
+	  <li>
+	  	<%= link_to 'write', new_feed_path, data:{icon: 'plus' } %>
+	  </li>
+	  <li><a id="search" href="#" data-icon="search">search</a></li>
+      <li>
+      	<%= link_to 'setting', settings_path, class: "ui-btn-active", data:{icon: 'gear' } %>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -6,10 +6,12 @@ class FeedsController < ApplicationController
   # GET /feeds
   # GET /feeds.json
   def index
-    @feeds = Feed.where(user_id: current_user.id).order('id desc')
+    #@feeds = Feed.where(user_id: current_user.id).order('id desc')
     @friend_ids = current_user.user_relations.pluck(:friend_user_id)
     ids = @friend_ids + current_user.id.to_s.split
-    @feeds = Feed.where(user_id: ids).order('id desc')
+    feed_ids = FeedData.where(user_id: ids).pluck(:feed_id)
+    feed_ids.uniq!
+    @feeds = Feed.where(id: feed_ids).order('id desc')
   end
 
   # GET /feeds/1
@@ -90,7 +92,7 @@ class FeedsController < ApplicationController
         channel_user_ids.each do |id|
           message = {channel: "/feeds/#{id}", data: {feed_id: params[:id], like_count: 1}}
           #uri = URI.parse("http://localhost:9292/faye")
-          uri = URI.parse("http://192.168.0.35:9292/faye")
+          uri = URI.parse(CONFIG['websocket_host'])
           Net::HTTP.post_form(uri, :message => message.to_json)
         end
       end

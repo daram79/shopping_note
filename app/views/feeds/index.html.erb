@@ -46,14 +46,16 @@
 	  	<%= link_to 'write', new_feed_path, data:{icon: 'plus' } %>
 	  </li>
 	  <li><a id="search" href="#" data-icon="search">search</a></li>
-      <li><a id="setting" href="#" data-icon="gear">setting</a></li>
+      <li>
+      	<%= link_to 'setting', settings_path, data:{icon: 'gear' } %>
+      </li>
     </ul>
   </div>
 </div>
 <script>
   $(function() {  
   //var faye = new Faye.Client('http://localhost:9292/faye');  
-  var faye = new Faye.Client('http://192.168.0.35:9292/faye');
+  var faye = new Faye.Client("<%=CONFIG['websocket_host']%>");
   faye.subscribe('/feeds/<%=current_user.id%>', function (data) {
   	var like_count = parseInt( $("#feed_container_" + data.feed_id + " .like_cnt").text());
   	$("#feed_container_" + data.feed_id + " .like_cnt").text(like_count + data.like_count);
