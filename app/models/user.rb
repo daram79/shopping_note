@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :feeds
+  has_many :likes
   has_many :user_relations
   has_many :be_requested_friends
   has_many :profile_photos

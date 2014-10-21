@@ -4,6 +4,7 @@
   <title>Sns</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
   
@@ -12,7 +13,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if notice %>
+<!-- <% if notice %>
   <p class="alert alert-notice"><%= notice %></p>
 <% end %>
 <% if alert %>
@@ -20,7 +21,7 @@
 <% end %>
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
-<!-->
+
   Logged in as <strong><%= current_user.email %></strong>.
   <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
   <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
@@ -29,8 +30,8 @@
 
   <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
--->
-<% end %>
+
+<% end %> -->
   <div data-role="page" id="page">
     <%= yield %>
   </div>

@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   
   resources :feeds do
     collection do
-      post "create_content"
+      post  "create_content"
+      get   "index_json"
     end
     member do
       post "add_like"

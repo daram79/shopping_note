@@ -20,7 +20,7 @@
 	  <div class="div_new_feed_area"><%= f.text_area :content %></div>
 	  <div style="visibility: hidden;margin-top: -32px;">
 	    <%= f.fields_for :feed_photos do |profile_photo| %>
-	      <%= profile_photo.file_field :image, accept: "image/*" %>
+	      <%= profile_photo.file_field :image, accept: "image/*", capture:"camera" %>
 	    <% end %>
 	  </div>
 	<% end %>

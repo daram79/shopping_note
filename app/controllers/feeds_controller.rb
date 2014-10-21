@@ -1,17 +1,26 @@
 # coding : utf-8
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:show, :edit, :update, :destroy, :comment, :add_like]
-  before_action :is_login?, only: [:index]
+  before_action :is_login?, only: [:index, :index_json]
 
   # GET /feeds
   # GET /feeds.json
   def index
-    #@feeds = Feed.where(user_id: current_user.id).order('id desc')
     @friend_ids = current_user.user_relations.pluck(:friend_user_id)
     ids = @friend_ids + current_user.id.to_s.split
     feed_ids = FeedData.where(user_id: ids).pluck(:feed_id)
     feed_ids.uniq!
     @feeds = Feed.where(id: feed_ids).order('id desc')
+    @current_user_id = current_user.id
+  end
+  
+  def index_json
+    @friend_ids = current_user.user_relations.pluck(:friend_user_id)
+    ids = @friend_ids + current_user.id.to_s.split
+    feed_ids = FeedData.where(user_id: ids).pluck(:feed_id)
+    feed_ids.uniq!
+    @feeds = Feed.where(id: feed_ids).order('id desc')
+    @current_user_id = current_user.id
   end
 
   # GET /feeds/1
@@ -77,27 +86,31 @@ class FeedsController < ApplicationController
   end
   
   def add_like
-    count = Like.where(feed_id: params[:id], user_id: current_user.id).count
-    if count == 0
+    like = Like.where(feed_id: params[:id], user_id: current_user.id).first
+    unless like
+      like_flg = true
       Like.create(feed_id:params[:id] , user_id: current_user.id, like_type: "feed")
       
       #@feed.user_id, current_user.id
-      feed_user_id = @feed.user_id
-      channel_user_ids = UserRelation.where(friend_user_id: feed_user_id).pluck(:user_id)
-      channel_user_ids.push feed_user_id
-      channel_user_ids.push current_user.id
-      channel_user_ids.uniq!
+      # feed_user_id = @feed.user_id
+      # channel_user_ids = UserRelation.where(friend_user_id: feed_user_id).pluck(:user_id)
+      # channel_user_ids.push feed_user_id
+      # channel_user_ids.push current_user.id
+      # channel_user_ids.uniq!
       
-      unless channel_user_ids.blank?
-        channel_user_ids.each do |id|
-          message = {channel: "/feeds/#{id}", data: {feed_id: params[:id], like_count: 1}}
-          #uri = URI.parse("http://localhost:9292/faye")
-          uri = URI.parse(CONFIG['websocket_host'])
-          Net::HTTP.post_form(uri, :message => message.to_json)
-        end
-      end
+      # unless channel_user_ids.blank?
+        # channel_user_ids.each do |id|
+          # message = {channel: "/feeds/#{id}", data: {feed_id: params[:id], like_count: 1}}
+          # #uri = URI.parse("http://localhost:9292/faye")
+          # uri = URI.parse(CONFIG['websocket_host'])
+          # Net::HTTP.post_form(uri, :message => message.to_json)
+        # end
+      # end
+    else
+      like.destroy
+      like_flg = false
     end
-    render json: {content: :no_content}
+    render json: {like_flg: like_flg}
   end
   
   def comment
@@ -105,8 +118,8 @@ class FeedsController < ApplicationController
   end
   
   def add_comment
-    comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
-    render json: {comment: comment}
+    @comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
+    #render json: {comment: comment}
   end
 
   private

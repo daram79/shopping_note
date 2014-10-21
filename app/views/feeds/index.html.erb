@@ -1,36 +1,9 @@
-<div data-role="header" style="background-color:#3b5998; "><h1 style="color:white;">Shopping Note</h1></div>
-<div data-role="content" style="background-color:#e9eaed;">
+<div data-role="header" style="background-color:#eb624b; font-family:'Lobster', cursive;"><h1 style="color:white;font-size:20px;">Shopping Note</h1></div>
+<div data-role="content" style="background-color:#f2f2f0;">
   <!--% if @friend_ids.blank? %-->
 	<div><%= link_to '추천친구 보기', friends_path, style: "text-decoration: none;" %></div>
   <!--% end %-->
-  <% @feeds.each do |feed| %>
-	  <div id="feed_box_<%=feed.id%>" class="feed_box">
-		<div class="nick">
-			<% if feed.user.profile_photos[0] %>
-			  <div class="user_photo" style="float: left;"><%= image_tag feed.user.profile_photos[0].image.thumb.url %></div>
-			<% end %>
-			  <div class="user_nick" style="float: left; padding: 6px 0 12px 5px;"><%=feed.user.nick%></div>
-			<% if feed.user_id == current_user.id %>
-			  <div class="user_delete" style="float: right; padding: 6px 0 12px 0;"><%= link_to '삭제', comment_feed_path(feed) %></div>
-			<% end %>
-		</div>
-		<div class="content" style="clear: both;"><%=raw hbr(feed.content) %></div>
-		<% if feed.feed_photos[0] %>
-		  <div class="photo">
-		  	<%= image_tag feed.feed_photos[0].image_url, class: "photo_content" %>
-	      </div>
-		<% end %>
-		<div class="like_box" style="margin: 0 10px;height: 20px; line-height: 20px; ">
-      	  <span style="padding-left: 5px;">like: </span><span class="like_cnt"><%=feed.likes.count%></span>
-        </div>
-        <div class="like_comment_box" style="margin:0 10px;height: 30px; line-height: 30px;">
-      	  <div class="" style="float: left; margin-left: 5px;"><span class="feed_like" style="color:red; text-decoration: underline;" data-feed-id="<%=feed.id%>" href="">like</span></div>
-      	  <div class="" style="float: left; margin-left: 10px;">
-      	    <%= link_to 'comment', comment_feed_path(feed) %>
-		  </div>
-	    </div>
-      </div>
-  <% end %>
+  <div id="feed_box"></div>
   <div class="feed_bottom" style=""></div>
 </div>
 <div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -51,13 +24,52 @@
   </div>
 </div>
 <script>
-  $(function() {  
-  //var faye = new Faye.Client('http://localhost:9292/faye');  
-  var faye = new Faye.Client("<%=CONFIG['websocket_host']%>");
-  faye.subscribe('/feeds/<%=current_user.id%>', function (data) {
-  	var like_count = parseInt( $("#feed_box_" + data.feed_id + " .like_cnt").text());
-  	$("#feed_container_" + data.feed_id + " .like_cnt").text(like_count + data.like_count);
-  });  
-});
+	make_feed();
+	
+	function make_feed(){
+		$.ajax({
+		    url: "/feeds/index_json",
+		    type: 'GET',
+		    dataType: 'json',
+		    success: function(feeds) {
+		    	html_str = ""
+		    	$.each(feeds, function(){
+		    		var feed = this;
+		    		html_str += "<div id='feed_box_" + feed.id + "' class='feed_box'>"
+			        html_str += " <div class='feed_content'>"
+			        html_str += "   <div class='nick'>"
+			        if(feed.profile_photo){
+			        	html_str += "   <div class='user_photo' style='float: left;'><img src='" + feed.profile_photo.image.thumb.url + "'></div>"
+			        	
+			        }
+			        html_str += "     <div class='user_nick' style='float: left; padding: 6px 0 12px 5px;'" + feed.user.nick + "></div>"
+			        
+			        if(feed.user_id == feed.current_user_id){
+			        	html_str += "     <div class='user_delete' style='float: right; padding: 6px 0 12px 0;'><a href=''>삭제</a></div>"
+			        }
+			        html_str += "   </div>"
+			        html_str += "   <div class='content' style='clear: both;'>" + feed.content + "</div>"
+			        if(feed.feed_photo){
+			        	html_str += " <div class='photo'>"
+				        html_str += "   <img class='photo_content' src='" + feed.feed_photo.image.url + "'>"
+				        html_str += " </div>"
+			        }
+			        html_str += "   <div class='like_box'>"
+			        html_str += "     <span style='padding-left: 5px;'>like: </span><span class='like_cnt'>" + feed.like_count + "</span>"
+			        html_str += "   </div>"
+			        html_str += " </div>"
+			        html_str += " <div class='like_comment_box'>"
+			        html_str += " <div class='feed_like' data-feed-id='" + feed.id + "'>like</div>"
+			        html_str += " <a href='/feeds/" + feed.id + "/comment' style='color: white; text-decoration: none; font-weight:normal;'>"  
+			        html_str += "   <div class='' style='text-align: center;'>comment</span></div>"
+			        html_str += " </a>"
+			        html_str += " </div>"  
+			        html_str += "</div>"
+				})
+			    $("#feed_box").html(html_str)
+		    },
+		    error: function(e) { 
+		    }
+		});
+	}
 </script>
-

@@ -2,6 +2,7 @@
 
 <table>
 	<tr><td><%= link_to '프로필 사진 변경', edit_profile_photo_settings_path %></td></tr>
+	<tr><td><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></td></tr>
 </table>
 
 <div data-role="footer" data-position="fixed" data-tap-toggle="false">
