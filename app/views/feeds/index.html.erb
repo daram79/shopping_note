@@ -59,7 +59,11 @@
 			        html_str += "   </div>"
 			        html_str += " </div>"
 			        html_str += " <div class='like_comment_box'>"
-			        html_str += " <div class='feed_like' data-feed-id='" + feed.id + "'>like</div>"
+			        if(feed.is_like){
+						html_str += " <div class='feed_like' style='color:#38c' data-feed-id='" + feed.id + "'>like</div>"			        	
+			        } else {
+			        	html_str += " <div class='feed_like' data-feed-id='" + feed.id + "'>like</div>"
+			        }
 			        html_str += " <a href='/feeds/" + feed.id + "/comment' style='color: white; text-decoration: none; font-weight:normal;'>"  
 			        html_str += "   <div class='' style='text-align: center;'>comment</span></div>"
 			        html_str += " </a>"
