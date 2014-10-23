@@ -16,10 +16,10 @@ $ ->
         cnt = parseInt($("#feed_box_#{feed_id} .like_cnt").text());
         if data.like_flg
           $(e.currentTarget).css('color', '#38c')
-          $("#feed_box_11 .like_cnt").text(cnt + 1);
+          $("#feed_box_#{feed_id} .like_cnt").text(cnt + 1);
         else
           $(e.currentTarget).css('color', 'white')
-          $("#feed_box_11 .like_cnt").text(cnt - 1);
+          $("#feed_box_#{feed_id} .like_cnt").text(cnt - 1);
   
   $(document).on "click", ".delete_feed", (e) ->
     feed_id = $(this).data("feed-id")
