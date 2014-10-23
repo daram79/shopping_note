@@ -1,0 +1,2 @@
+CONTENT = "Content"
+LIKE = "Like"

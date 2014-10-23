@@ -1,17 +1,17 @@
 class Like < ActiveRecord::Base
-  belongs_to :feed
-  belongs_to :user
+  belongs_to  :feed
+  belongs_to  :user
+  has_many    :main_feeds, :as => :main
   
-  after_save :create_feed_data
-  after_destroy :delete_feed_data
+  after_save :create_main_feed
+  after_destroy :delete_main_feed
   
-  def create_feed_data
-    FeedData.create(user_id: self.user_id, feed_id: self.id, feed_type: "like")
+  def create_main_feed
+    self.feed.main_feeds.create(user_id: self.user_id, sub_type: LIKE)
   end
   
-  def delete_feed_data
-    feed_data = FeedData.where(user_id: self.user_id, feed_id: self.id, feed_type: "like").first
-    feed_data.destroy
+  def delete_main_feed
+    self.feed.main_feeds.where(sub_type: LIKE, user_id: self.user_id).destroy_all
   end
   
 end

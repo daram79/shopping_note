@@ -6,18 +6,19 @@ class FeedsController < ApplicationController
   # GET /feeds
   # GET /feeds.json
   def index
-    @friend_ids = current_user.user_relations.pluck(:friend_user_id)
-    ids = @friend_ids + current_user.id.to_s.split
-    feed_ids = FeedData.where(user_id: ids).pluck(:feed_id)
-    feed_ids.uniq!
-    @feeds = Feed.where(id: feed_ids).order('id desc')
-    @current_user_id = current_user.id
+    # @friend_ids = current_user.user_relations.pluck(:friend_user_id)
+    # ids = @friend_ids + current_user.id.to_s.split
+    # feed_ids = MainFeed.where(user_id: ids).pluck(:feed_id)
+    # feed_ids.uniq!
+    # @feeds = Feed.where(id: feed_ids).order('id desc')
+    # @current_user_id = current_user.id
   end
   
   def index_json
     @friend_ids = current_user.user_relations.pluck(:friend_user_id)
     ids = @friend_ids + current_user.id.to_s.split
-    feed_ids = FeedData.where(user_id: ids).pluck(:feed_id)
+    #feed_ids = MainFeed.where(user_id: ids).pluck(:feed_id)
+    feed_ids = Feed.where(user_id: ids).pluck(:id)
     feed_ids.uniq!
     @feeds = Feed.where(id: feed_ids).order('id desc')
     @current_user_id = current_user.id
@@ -118,8 +119,9 @@ class FeedsController < ApplicationController
   end
   
   def add_comment
-    @comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
-    #render json: {comment: comment}
+    comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
+    photo_url = current_user.profile_photos.first.image.thumb.url
+    render json: {comment_content: comment.content, photo_url: photo_url, user_nick: current_user.nick}
   end
 
   private
