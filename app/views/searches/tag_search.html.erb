@@ -1,0 +1,40 @@
+<div data-role="header" style="background-color:#eb624b; font-family:'Lobster', cursive;color:white;font-size:20px;text-align:left;">
+	<h1 style="margin:0; text-align: left; margin-left:10px;">검색</h1>
+</div>
+<div style="position:absolute;top:7px; right:65px; width: 200px;">
+	<input id="tag" type="text" placeholder="태그검색" />
+</div>
+<div class="search_box" style="position:absolute; top:6px; right:10px; width: 50px;">
+	<input id="tag_search" type="button" value="검색">
+</div>
+
+<div data-role="content" style="padding:3px 0 3px 3px;">
+  <div id="search_result"></div>
+  <div class="feed_bottom" style=""></div>
+</div>
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+	<ul>
+	  <li>
+	  	<%= link_to 'feed', feeds_path, data:{icon: 'grid' } %>
+	  </li>
+	  <li>
+	  	<!--a id="heart" href="#" data-icon="heart">heart</a-->
+	  	<%= link_to 'heart', populars_path, class: "ui-btn-active", data:{icon: 'heart' } %>
+	  </li>
+	  <li>
+	  	<%= link_to 'write', new_feed_path, data:{icon: 'plus' } %>
+	  </li>
+	  <li><a id="search" href="#" data-icon="search">search</a></li>
+      <li>
+      	<%= link_to 'setting', settings_path, data:{icon: 'gear' } %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+.search_box .ui-btn {
+	padding: 4px;
+}
+</style>

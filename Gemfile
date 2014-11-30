@@ -36,6 +36,7 @@ gem 'kaminari'
 gem 'nokogiri'
 
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'koala'
 
 gem 'redis-rails'

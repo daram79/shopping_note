@@ -14,6 +14,15 @@ Rails.application.routes.draw do
 
   resources :profile_photos
   
+  resources :searches do
+    collection do
+      get "tag_search"
+      get "user_search"
+    end
+  end
+  
+  resources :populars
+  
   resources :feeds do
     collection do
       post  "create_content"
@@ -30,7 +39,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :sessions      => "users/sessions",
     :registrations => "users/registrations",
-    :passwords     => "users/passwords"
+    :passwords     => "users/passwords",
+    :omniauth_callbacks => "users/omniauth_callbacks"
   }
   
   root 'feeds#index'

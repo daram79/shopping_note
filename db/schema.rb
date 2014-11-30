@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022171009) do
+ActiveRecord::Schema.define(version: 20141105162601) do
 
   create_table "be_requested_friends", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20141022171009) do
   create_table "feed_photos", force: true do |t|
     t.integer  "feed_id"
     t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_tags", force: true do |t|
+    t.integer  "feed_id"
+    t.string   "tag_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,6 +111,8 @@ ActiveRecord::Schema.define(version: 20141022171009) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["birthday"], name: "index_users_on_birthday", using: :btree

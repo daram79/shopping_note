@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-         
+  devise :database_authenticatable, :registerable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  #devise :omniauthable
+       
   has_many :feeds
   has_many :likes
   has_many :user_relations
@@ -12,13 +13,23 @@ class User < ActiveRecord::Base
   has_many :comments
   accepts_nested_attributes_for :profile_photos, reject_if: :profile_photos_attributes.blank?#, allow_destroy: true
   
+  
+  def self.from_omniauth(auth)
+    # debugger
+    token = auth["credentials"]["token"]
+    graph = Koala::Facebook::API.new(token)
+    where(auth.slice(:provider, :uid, :nick)).first_or_create do |user|
+      user.email = auth.info.email
+      user.nick = auth.info.name
+      user.password = Devise.friendly_token[0,20]
+      user.profile_photos.build(remote_image_url: graph.get_picture("me", :type => "large"))
+    end
+  end
+  
   def with_profile_photo
     self.profile_photos.build
     self
   end
-  
-  #attr_accessor :image
-  #after_create :create_image
   
   # private
   # def create_image

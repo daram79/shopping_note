@@ -1,4 +1,6 @@
-<div data-role="header" style="background-color:#eb624b; font-family:'Lobster', cursive;"><h1 style="color:white;font-size:20px;">Shopping Note</h1></div>
+<div data-role="header" style="background-color:#eb624b; font-family:'Lobster', cursive;">
+	<h1 style="color:white;font-size:20px;margin:0; text-align: left; margin-left: 10px;">Shopping Note</h1>
+</div>
 <div data-role="content" style="background-color:#f2f2f0;">
   <!--% if @friend_ids.blank? %-->
 	<div><%= link_to '추천친구 보기', friends_path, style: "text-decoration: none;" %></div>
@@ -12,7 +14,10 @@
 	  <li>
 	  	<%= link_to 'feed', feeds_path, class: "ui-btn-active", data:{icon: 'grid' } %>
 	  </li>
-	  <li><a id="heart" href="#" data-icon="heart">heart</a></li>
+	  <li>
+	  	<!--a id="heart" href="#" data-icon="heart">heart</a-->
+	  	<%= link_to 'heart', populars_path, data:{icon: 'heart' } %>
+	  </li>
 	  <li>
 	  	<%= link_to 'write', new_feed_path, data:{icon: 'plus' } %>
 	  </li>

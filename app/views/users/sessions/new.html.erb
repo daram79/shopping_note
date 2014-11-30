@@ -11,5 +11,13 @@
 	  <div><%= f.submit "Sign in" %></div>
 	<% end %>
 	
+	<div><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), "data-ajax" => "false", class: "custom-btn" %></div>
 	<%= render "users/shared/links" %>
-</div>
+
+
+<script>
+	<% if flash[:already_user] %>
+		alert("이미 등록된 이메일 입니다.")
+	
+	<% end %>
+</script>	
