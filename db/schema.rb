@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105162601) do
+ActiveRecord::Schema.define(version: 20141130032904) do
 
   create_table "be_requested_friends", force: true do |t|
     t.integer  "user_id"
@@ -113,8 +113,10 @@ ActiveRecord::Schema.define(version: 20141105162601) do
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["birthday"], name: "index_users_on_birthday", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

@@ -6,6 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       #이메일이 없을경우
       
     end
+    
     email_user = User.find_by_email(request.env["omniauth.auth"].info.email)
     if email_user && email_user.provider != "facebook"
     #이미 등록된 이메일일 경우

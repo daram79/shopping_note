@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  
+  acts_as_token_authenticatable
+  
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   #devise :omniauthable
@@ -15,7 +18,7 @@ class User < ActiveRecord::Base
   
   
   def self.from_omniauth(auth)
-    # debugger
+    debugger
     token = auth["credentials"]["token"]
     graph = Koala::Facebook::API.new(token)
     where(auth.slice(:provider, :uid, :nick)).first_or_create do |user|

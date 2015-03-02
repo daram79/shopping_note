@@ -27,6 +27,7 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
+    @item_photo = @feed.feed_photos[0]
   end
 
   # GET /feeds/new
@@ -91,22 +92,6 @@ class FeedsController < ApplicationController
     unless like
       like_flg = true
       Like.create(feed_id:params[:id] , user_id: current_user.id, like_type: "feed")
-      
-      #@feed.user_id, current_user.id
-      # feed_user_id = @feed.user_id
-      # channel_user_ids = UserRelation.where(friend_user_id: feed_user_id).pluck(:user_id)
-      # channel_user_ids.push feed_user_id
-      # channel_user_ids.push current_user.id
-      # channel_user_ids.uniq!
-      
-      # unless channel_user_ids.blank?
-        # channel_user_ids.each do |id|
-          # message = {channel: "/feeds/#{id}", data: {feed_id: params[:id], like_count: 1}}
-          # #uri = URI.parse("http://localhost:9292/faye")
-          # uri = URI.parse(CONFIG['websocket_host'])
-          # Net::HTTP.post_form(uri, :message => message.to_json)
-        # end
-      # end
     else
       like.destroy
       like_flg = false
@@ -114,14 +99,24 @@ class FeedsController < ApplicationController
     render json: {like_flg: like_flg}
   end
   
+  def search_tag
+    tag = params[:tag]
+    feed_ids = FeedTag.where(tag_name: tag).pluck(:feed_id)
+    @feeds = Feed.where(id: feed_ids)
+  end
+  
   def comment
-    @comments = @feed.comments 
+    @comments = @feed.comments
   end
   
   def add_comment
     comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
     photo_url = current_user.profile_photos.first.image.thumb.url
     render json: {comment_content: comment.content, photo_url: photo_url, user_nick: current_user.nick}
+  end
+  
+  def newest
+    @feeds = Feed.all.order('id desc')
   end
 
   private
