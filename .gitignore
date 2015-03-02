@@ -10,6 +10,7 @@
 Gemfile.lock
 /config/database.yml
 /public/uploads/*
+/test
 
 
 # Ignore the default SQLite database.
