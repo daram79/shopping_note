@@ -8,14 +8,14 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
   include CarrierWave::RMagick  #리사이즈
   
-  process :resize_to_limit => [300, 0]  #사이즈 상한
+  process :resize_to_limit => [500, 0]  #사이즈 상한
   process :convert => 'jpg'
   process :set_content_type
   process :fix_exif_rotation
   
   #섬네일
   version :thumb do
-    process :resize_to_limit => [30, 30]
+    process :resize_to_limit => [50, 50]
   end
   
   #사진 옆으로 보이는거 수정

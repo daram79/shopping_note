@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :member_notes do
+    member do
+      get "likes"
+    end
+  end
+  
   resources :friends do
     member do
       post "add"
@@ -27,6 +33,8 @@ Rails.application.routes.draw do
     collection do
       post  "create_content"
       get   "index_json"
+      get   "search_tag"
+      get   "newest"
     end
     member do
       post "add_like"
@@ -42,6 +50,18 @@ Rails.application.routes.draw do
     :passwords     => "users/passwords",
     :omniauth_callbacks => "users/omniauth_callbacks"
   }
+  
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        post 'registrations' => 'registrations#create', :as => 'register'
+        post 'sessions' => 'sessions#create', :as => 'login'
+        delete 'sessions' => 'sessions#destroy', :as => 'logout'
+        post 'facebookLogin' => 'facebook#login', :as => 'fb_login'
+        post 'facebook' => 'facebook#create', :as => 'fb_create'
+      end
+    end
+  end
   
   root 'feeds#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -45,7 +45,9 @@ class ProfilePhotosController < ApplicationController
       if @profile_photo.update(profile_photo_params)
         #format.html { redirect_to @profile_photo, notice: 'Profile photo was successfully updated.' }
         format.html { redirect_to controller: "settings", action: "index" }
-        format.json { render :show, status: :ok, location: @profile_photo }
+        # format.json { render json: @profile_photo, status: :unprocessable_entity }
+        format.json { render json: { :success => true, :data => @profile_photo } }
+        # format.json { render json: @profile_photo, data: { @profile_photo } 
       else
         format.html { render :edit }
         format.json { render json: @profile_photo.errors, status: :unprocessable_entity }

@@ -16,6 +16,9 @@ class FriendsController < ApplicationController
   
   def add
     UserRelation.create(user_id: current_user.id, friend_user_id: params[:id], is_friend: false)
-    redirect_to action: "index"
+    respond_to do |format|
+      format.html { redirect_to action: "index" }
+      format.json { render json: { :success => true } }
+    end
   end
 end
