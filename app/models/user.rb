@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   
   
   def self.from_omniauth(auth)
-    debugger
     token = auth["credentials"]["token"]
     graph = Koala::Facebook::API.new(token)
     where(auth.slice(:provider, :uid, :nick)).first_or_create do |user|
