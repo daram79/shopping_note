@@ -1,7 +1,9 @@
 class Api::V1::FacebookController < Devise::RegistrationsController
   def login
     fb_id = params[:user][:facebook_id]
+    email = params[:user][:email]
     user = User.find_by_uid(fb_id)
+    user = User.find_by_email(email) unless user
     unless user
       build_resource(sign_up_params)
       resource.save
