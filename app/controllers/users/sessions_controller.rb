@@ -10,4 +10,7 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     super
   end
+  def info
+    @user = User.find(params[:id])
+  end
 end

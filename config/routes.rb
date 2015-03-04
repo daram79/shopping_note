@@ -51,6 +51,10 @@ Rails.application.routes.draw do
     :omniauth_callbacks => "users/omniauth_callbacks"
   }
   
+  devise_scope :user do
+    get 'users/:id/info', :to => "users/sessions#info"
+  end
+  
   namespace :api do
     namespace :v1 do
       devise_scope :user do
