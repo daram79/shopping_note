@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :feeds
   has_many :likes
   has_many :user_relations
+  has_many :friend_user_relations, :foreign_key => "friend_user_id", :class_name => "UserRelation"
   has_many :be_requested_friends
   has_many :profile_photos
   has_many :comments

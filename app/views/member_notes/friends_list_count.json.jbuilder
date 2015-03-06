@@ -1,0 +1,2 @@
+json.following_count @following_count
+json.follower_count @follower_count

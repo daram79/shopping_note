@@ -15,8 +15,8 @@ class MemberNotesController < ApplicationController
    @member_notes = Feed.where(user_id: user_id)
   end
   
-  # GET /member_notes/1/Like
-  # GET /member_notes/Like.json
+  # GET /member_notes/1/Likes
+  # GET /member_notes/1/Likes.json
   def likes
    #get user id
    user_id = params[:id]

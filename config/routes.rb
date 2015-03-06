@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :friends do
     member do
       post "add"
+      post "following"
+      delete "unfollowing"
     end
   end
 
@@ -53,6 +55,8 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     get 'users/:id/info', :to => "users/sessions#info"
+    get 'users/:id/follower_list', :to => "users/sessions#follower_list"
+    get 'users/:id/following_list', :to => "users/sessions#following_list"
   end
   
   namespace :api do
