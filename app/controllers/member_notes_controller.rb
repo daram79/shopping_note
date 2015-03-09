@@ -5,14 +5,14 @@ class MemberNotesController < ApplicationController
   # GET /member_notes.json
   def index
     # @member_notes = MemberNote.all
+    user_id = params[:id]
+    @member_notes = Feed.where(user_id: user_id)
   end
 
   # GET /member_notes/1
   # GET /member_notes/1.json
   def show
    #get user id
-   user_id = params[:id]
-   @member_notes = Feed.where(user_id: user_id)
   end
   
   # GET /member_notes/1/Likes
