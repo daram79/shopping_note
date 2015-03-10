@@ -11,4 +11,5 @@ json.array!(@feeds) do |feed|
   else
     json.is_like false
   end
+  	json.friend_type "following"
 end

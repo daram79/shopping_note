@@ -25,4 +25,8 @@ class Users::SessionsController < Devise::SessionsController
     follower_ids = UserRelation.where(user_id: user_id).pluck(:friend_user_id)
     @followings = User.where(id: follower_ids)
   end
+  
+  def friend_count
+    @user = User.find(params[:id])
+  end
 end

@@ -57,6 +57,8 @@ Rails.application.routes.draw do
     get 'users/:id/info', :to => "users/sessions#info"
     get 'users/:id/follower_list', :to => "users/sessions#follower_list"
     get 'users/:id/following_list', :to => "users/sessions#following_list"
+    get 'users/:id/friend_count', :to => "users/sessions#friend_count"
+    
   end
   
   namespace :api do
