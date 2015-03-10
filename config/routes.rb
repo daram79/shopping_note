@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :alrams
+
   resources :settings do
     collection do
       get "edit_profile_photo"

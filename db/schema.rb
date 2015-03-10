@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130032904) do
+ActiveRecord::Schema.define(version: 20150310214711) do
+
+  create_table "alrams", force: true do |t|
+    t.integer  "alram_id"
+    t.string   "alram_type"
+    t.integer  "user_id"
+    t.integer  "friend_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "be_requested_friends", force: true do |t|
     t.integer  "user_id"
