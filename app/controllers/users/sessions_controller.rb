@@ -18,12 +18,14 @@ class Users::SessionsController < Devise::SessionsController
     user_id = params[:id]
     follower_ids = UserRelation.where(friend_user_id: user_id).pluck(:user_id)
     @followers = User.where(id: follower_ids)
+    @my_following_user_ids = current_user.user_relations.pluck(:friend_user_id)
   end
   
   def following_list
     user_id = params[:id]
     follower_ids = UserRelation.where(user_id: user_id).pluck(:friend_user_id)
     @followings = User.where(id: follower_ids)
+    @my_following_user_ids = current_user.user_relations.pluck(:friend_user_id)
   end
   
   def friend_count
