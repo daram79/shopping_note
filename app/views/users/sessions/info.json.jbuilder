@@ -1,4 +1,4 @@
-json.extract! @user, :nick
+json.extract! @user, :nick, :birthday
 json.profile_image @user.profile_photos[0]
 json.following_count @user.user_relations.count
 json.follower_count @user.friend_user_relations.count
