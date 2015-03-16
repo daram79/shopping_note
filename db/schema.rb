@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310214711) do
+ActiveRecord::Schema.define(version: 20150316091254) do
 
   create_table "alrams", force: true do |t|
     t.integer  "alram_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20150310214711) do
     t.string   "provider"
     t.string   "uid"
     t.string   "authentication_token"
+    t.text     "registration_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

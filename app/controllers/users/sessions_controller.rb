@@ -31,4 +31,11 @@ class Users::SessionsController < Devise::SessionsController
   def friend_count
     @user = User.find(params[:id])
   end
+  
+  def set_registration_id
+    @user = User.find(params[:id])
+    @user.update(registration_id: params[:registration_id])
+    render :json => {status: 200}
+  end
+    
 end

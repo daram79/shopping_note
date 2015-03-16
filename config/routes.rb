@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   }
   
   devise_scope :user do
+    post 'users/:id/set_registration_id', :to => "users/sessions#set_registration_id"
     get 'users/:id/info', :to => "users/sessions#info"
     get 'users/:id/follower_list', :to => "users/sessions#follower_list"
     get 'users/:id/following_list', :to => "users/sessions#following_list"
