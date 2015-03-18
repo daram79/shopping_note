@@ -20,7 +20,7 @@ class FeedsController < ApplicationController
     #feed_ids = MainFeed.where(user_id: ids).pluck(:feed_id)
     feed_ids = Feed.where(user_id: ids).pluck(:id)
     feed_ids.uniq!
-    @feeds = Feed.where(id: feed_ids).order('id desc')
+    @feeds = Feed.where(id: feed_ids).order('updated_at desc')
     @current_user_id = current_user.id
   end
 
@@ -116,7 +116,7 @@ class FeedsController < ApplicationController
   end
   
   def newest
-    @feeds = Feed.all.order('id desc')
+    @feeds = Feed.all.order('updated_at desc')
   end
 
   private

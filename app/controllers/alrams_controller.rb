@@ -4,7 +4,7 @@ class AlramsController < ApplicationController
   def index
     # @alrams = Alram.all
     @my_following_user_ids = current_user.user_relations.pluck(:friend_user_id)
-    @alrams = Alram.where(user_id: params[:id])
+    @alrams = Alram.where(user_id: params[:id]).order("updated_at desc")
     # respond_with(@alrams)
   end
 

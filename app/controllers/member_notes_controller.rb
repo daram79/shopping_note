@@ -6,7 +6,7 @@ class MemberNotesController < ApplicationController
   def index
     # @member_notes = MemberNote.all
     user_id = params[:id]
-    @member_notes = Feed.where(user_id: user_id)
+    @member_notes = Feed.where(user_id: user_id).order("updated_at desc")
   end
 
   # GET /member_notes/1
@@ -21,7 +21,7 @@ class MemberNotesController < ApplicationController
    #get user id
    user_id = params[:id]
    like_ids = Like.where(user_id: user_id).pluck(:feed_id)
-   @member_notes = Feed.where(id: like_ids)
+   @member_notes = Feed.where(id: like_ids).order("updated_at desc")
   end
 
   # GET /member_notes/new
