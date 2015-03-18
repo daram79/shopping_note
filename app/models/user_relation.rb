@@ -9,6 +9,10 @@ class UserRelation < ActiveRecord::Base
   def create_alram
     if self.user_id != self.friend_user_id
       self.alram.create(user_id: self.friend_user_id, friend_user_id: self.user_id)
+      gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
+      registration_ids = [self.alram.user.registration_id]
+      options = {data: {friend_user_name: self.alram.friend_user.nick, alram_type: "UserRelation"}}
+      response = gcm.send(registration_ids, options)
     end
   end
   
