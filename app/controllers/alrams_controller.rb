@@ -3,8 +3,8 @@ class AlramsController < ApplicationController
 
   def index
     # @alrams = Alram.all
-    # @my_following_user_ids = current_user.user_relations.pluck(:friend_user_id)
-    @alrams = Alram.where(user_id: current_user.id)
+    @my_following_user_ids = current_user.user_relations.pluck(:friend_user_id)
+    @alrams = Alram.where(user_id: params[:id])
     # respond_with(@alrams)
   end
 
