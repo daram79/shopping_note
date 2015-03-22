@@ -34,6 +34,7 @@ class Feed < ActiveRecord::Base
     unless ret_tag.blank?
       ret_tag.uniq!
       ret_tag.each do |tag|
+        tag.gsub!('#', '')
         FeedTag.create(feed_id: self.id, tag_name: tag)
       end
     end
