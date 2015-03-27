@@ -8,6 +8,7 @@ class Api::V1::FacebookController < Devise::RegistrationsController
       build_resource(sign_up_params)
       resource.save
       sign_in resource
+      resource.update(uid: fb_id, provider: "facebook")
       # user = User.create(email: params[:user][:email], nick: params[:user][:name], birthday: params[:user][:birthday], uid: fb_id, provider: "facebook")
     else
       sign_in user
