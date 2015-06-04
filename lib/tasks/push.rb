@@ -15,11 +15,23 @@
 
 require 'gcm'
 require "#{File.dirname(__FILE__)}/../../config/environment.rb"
-alrams = Alram.where(send_flg: false)
-registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
-registration_id.compact
-unless registration_id.blank?
-  gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
-  response = gcm.send(registration_id)
-  alrams.update_all(send_flg: true)
+while true do
+  alrams = Alram.where(send_flg: false)
+  registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
+  registration_id.compact
+  unless registration_id.blank?
+    gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
+    response = gcm.send(registration_id)
+    alrams.update_all(send_flg: true)
+  end
 end
+# puts "push start " + Time.now.to_s
+# alrams = Alram.where(send_flg: false)
+# registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
+# registration_id.compact
+# unless registration_id.blank?
+  # gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
+  # response = gcm.send(registration_id)
+  # alrams.update_all(send_flg: true)
+# end
+# puts "push start " + Time.now.to_s
