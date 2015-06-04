@@ -35,6 +35,10 @@ class AlramsController < ApplicationController
     @alram.destroy
     respond_with(@alram)
   end
+  
+  def get_alram_data
+    @alram = Alram.where(user_id: current_user.id, send_flg: true).last
+  end
 
   private
     def set_alram

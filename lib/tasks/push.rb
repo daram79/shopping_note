@@ -15,25 +15,11 @@
 
 require 'gcm'
 require "#{File.dirname(__FILE__)}/../../config/environment.rb"
-
 alrams = Alram.where(send_flg: false)
-
-unless alrams.blank?
+registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
+registration_id.compact
+unless registration_id.blank?
   gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
-      # registration_ids = [self.alram.last.user.registration_id]
-      # options = {data: {friend_user_name: self.alram.last.friend_user.nick, alram_type: "Comment"}}
-      # response = gcm.send(registration_ids, options)
-  registration_id = []
-  alrams.each do |alram|
-    registration_id[0] = alram.user.registration_id
-    name = alram.friend_user.nick
-    type = alram.alram_type
-    options = {data: {friend_user_name: name, alram_type: type}}
-    begin
-      response = gcm.send(registration_id, options)
-      alram.update(send_flg: true)
-      # p response
-    rescue
-    end
-  end
+  response = gcm.send(registration_id)
+  alrams.update_all(send_flg: true)
 end

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :alrams
+  resources :alrams do
+    collection do
+      get "get_alram_data"
+    end
+  end
 
   resources :settings do
     collection do
