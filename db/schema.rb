@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316091254) do
+ActiveRecord::Schema.define(version: 20150604060528) do
 
   create_table "alrams", force: true do |t|
     t.integer  "alram_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150316091254) do
     t.integer  "friend_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "send_flg",       default: false
   end
 
   create_table "be_requested_friends", force: true do |t|
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 20150316091254) do
   create_table "feeds", force: true do |t|
     t.integer  "user_id"
     t.integer  "feed_type_id"
-    t.text     "content"
+    t.string   "content",      limit: 191
     t.datetime "created_at"
     t.datetime "updated_at"
   end
