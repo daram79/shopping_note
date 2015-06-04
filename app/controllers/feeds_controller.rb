@@ -27,6 +27,10 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
+    if params[:user_token]
+      user = User.where(email: params[:user_email], authentication_token: params[:user_token]).first
+      sign_in user if user
+    end
     @item_photo = @feed.feed_photos[0]
   end
 
