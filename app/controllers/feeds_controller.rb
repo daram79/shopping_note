@@ -1,5 +1,6 @@
 # coding : utf-8
 class FeedsController < ApplicationController
+  protect_from_forgery :except => [:add_like]
   before_action :set_feed, only: [:show, :edit, :update, :destroy, :comment, :add_like]
   before_action :is_login?, only: [:index, :index_json]
 

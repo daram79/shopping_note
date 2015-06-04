@@ -1,4 +1,6 @@
 class FriendsController < ApplicationController
+  protect_from_forgery :except => [:add, :following, :unfollowing]
+  
   def index
     friend_ids = current_user.user_relations.pluck(:friend_user_id)
     ids = friend_ids + current_user.id.to_s.split
