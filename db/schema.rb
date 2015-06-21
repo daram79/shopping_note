@@ -69,10 +69,13 @@ ActiveRecord::Schema.define(version: 20150604060528) do
   create_table "feeds", force: true do |t|
     t.integer  "user_id"
     t.integer  "feed_type_id"
-    t.string   "content",      limit: 191
+    t.text     "content"
+    t.text     "html_content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feeds", ["id", "feed_type_id"], name: "index_feeds_on_id_and_feed_type_id", using: :btree
 
   create_table "likes", force: true do |t|
     t.integer  "feed_id"
@@ -126,10 +129,5 @@ ActiveRecord::Schema.define(version: 20150604060528) do
     t.string   "authentication_token"
     t.text     "registration_id"
   end
-
-  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
-  add_index "users", ["birthday"], name: "index_users_on_birthday", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

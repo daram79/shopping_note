@@ -54,10 +54,15 @@ class FeedsController < ApplicationController
       flash[:notice] = "지원하지 않는 형식의 사진입니다."
       redirect_to action: "new"
     else
-      @feed = Feed.new(feed_params)
+      content = params[:feed][:content]
+      tags = Feed.get_tag(content) #태그 작성후 DB에 넣고 태그값 리턴해줌
+      html_content = Feed.make_html(content, tags)
+      #@feed = Feed.new(feed_params)
+      @feed = Feed.new(feed_params.merge(html_content: html_content))
       respond_to do |format|
         if @feed.save
           #format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
+          Feed.create_tag(@feed.id, tags)
           format.html { redirect_to feeds_url, notice: 'Feed was successfully created.' }
           format.json { render :show, status: :created, location: @feed }
         else
@@ -132,6 +137,6 @@ class FeedsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feed_params
-      params[:feed].permit(:user_id, :content, :feed_type_id, feed_photos_attributes: [:image])
+      params[:feed].permit(:user_id, :content, :html_content, :feed_type_id, feed_photos_attributes: [:image])
     end
 end

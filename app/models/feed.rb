@@ -7,12 +7,12 @@ class Feed < ActiveRecord::Base
   has_many :feed_photos, :dependent => :destroy
   has_many :feed_tags, :dependent => :destroy
   # after_save :create_main_feed
-  after_save :create_tag
+  # after_save :create_tag
   # after_destroy :destroy_main_feed
   
   accepts_nested_attributes_for :feed_photos, reject_if: :feed_photos_attributes.blank?#, allow_destroy: true
   
-  def self.chk_tag(content_line)
+  def self.make_tag(content_line)
     arr_tag = []
     if content_line.index("#")
       arr_line = content_line.split(" ")
@@ -20,24 +20,32 @@ class Feed < ActiveRecord::Base
         arr_tag.push val if val.index("#")
       end
     end
-    arr_tag
+    ret_arr = arr_tag.uniq
   end
   
   # def create_main_feed
     # self.main_feeds.create(user_id: self.user_id, sub_type: CONTENT)
   # end
   
-  def create_tag
-    content = self.content.gsub(/(\r\n|\r|\n)/, " ") #개행삭제
-    # arr_content = self.content.split("\r\n")
-    ret_tag = Feed.chk_tag(content)
-    unless ret_tag.blank?
-      ret_tag.uniq!
-      ret_tag.each do |tag|
-        tag.gsub!('#', '')
-        FeedTag.create(feed_id: self.id, tag_name: tag)
-      end
+  def self.get_tag(content)
+    content = content.gsub(/(\r\n|\r|\n)/, " ") #개행삭제
+    Feed.make_tag(content)
+  end
+  
+  def self.create_tag(id, tags)
+    tags.each do |tag|
+      _tag = tag.gsub('#', '')
+      FeedTag.create(feed_id: id, tag_name: _tag)
     end
+  end
+  
+  def self.make_html(content, tags)
+    html_content = content.clone
+    tags.each do |tag|
+      _tag = tag.gsub('#', '')
+      html_content.gsub!(tag, " <b><a href='search://#{_tag}'>#{tag}</a></b>")
+    end
+    html_content
   end
   
   
