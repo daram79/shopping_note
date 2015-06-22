@@ -41,6 +41,8 @@ class Feed < ActiveRecord::Base
   
   def self.make_html(content, tags)
     html_content = content.clone
+    html_content.gsub!(" ", "&nbsp;") #개행삭제
+    html_content.gsub!(/(\r\n|\r|\n)/, "<br />")
     tags.each do |tag|
       _tag = tag.gsub('#', '')
       html_content.gsub!(tag, " <b><a href='search://#{_tag}'>#{tag}</a></b>")

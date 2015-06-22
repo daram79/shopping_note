@@ -21,7 +21,7 @@ class FeedsController < ApplicationController
     #feed_ids = MainFeed.where(user_id: ids).pluck(:feed_id)
     feed_ids = Feed.where(user_id: ids).pluck(:id)
     feed_ids.uniq!
-    @feeds = Feed.where("id in (?) and feed_type_id <> 2", feed_ids).order('updated_at desc')
+    @feeds = Feed.where("id in (?) and feed_type_id <> 2", feed_ids).order('updated_at desc').limit(100)
     @current_user_id = current_user.id
   end
 
