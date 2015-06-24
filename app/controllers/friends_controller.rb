@@ -41,4 +41,20 @@ class FriendsController < ApplicationController
       format.json { render json: { :success => true } }
     end
   end
+  
+  def get_recommend_users
+    ids = User.all.pluck(:id)
+    del_recommend_user_ids = DeleteRecommendUser.where(user_id: current_user.id).pluck(:recommend_user_id)
+    friend_ids = current_user.user_relations.pluck(:friend_user_id) 
+    except_user_ids = del_recommend_user_ids + friend_ids + current_user.id.to_s.split
+    except_user_ids.uniq!
+    ids = ids - except_user_ids
+    @recommend_users = User.where("id in (?)", ids.sample(3))
+  end
+  
+  def del_recommend_user
+    DeleteRecommendUser.create(user_id: params[:user_id], recommend_user_id: params[:recommend_user_id])
+    render json: {status: :ok}
+  end
+  
 end

@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   end
   
   resources :friends do
+    collection do
+      get   "get_recommend_users"
+      post  "del_recommend_user"
+    end
     member do
       post "add"
       post "following"
