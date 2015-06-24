@@ -3,8 +3,10 @@ class FriendsController < ApplicationController
   
   def index
     friend_ids = current_user.user_relations.pluck(:friend_user_id)
-    friend_ids.push current_user.id
-    @users = User.where("id not in(?)", friend_ids)
+    ids = User.all.pluck(:id)
+    except_user_ids = DeleteRecommendUser.get_excep_user_ids(current_user)
+    ids = ids - except_user_ids
+    @recommend_users = User.where("id in (?)", ids.sample(10))
   end
 
   def show
@@ -44,12 +46,14 @@ class FriendsController < ApplicationController
   
   def get_recommend_users
     ids = User.all.pluck(:id)
-    del_recommend_user_ids = DeleteRecommendUser.where(user_id: current_user.id).pluck(:recommend_user_id)
-    friend_ids = current_user.user_relations.pluck(:friend_user_id)
-    friend_ids.push  current_user.id
-    except_user_ids = del_recommend_user_ids + friend_ids
-    except_user_ids.uniq!
+    except_user_ids = DeleteRecommendUser.get_excep_user_ids(current_user)
     ids = ids - except_user_ids
+    # del_recommend_user_ids = DeleteRecommendUser.where(user_id: current_user.id).pluck(:recommend_user_id)
+    # friend_ids = current_user.user_relations.pluck(:friend_user_id)
+    # friend_ids.push  current_user.id
+    # except_user_ids = del_recommend_user_ids + friend_ids
+    # except_user_ids.uniq!
+    # ids = ids - except_user_ids
     @recommend_users = User.where("id in (?)", ids.sample(3))
   end
   

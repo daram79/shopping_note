@@ -1,8 +1,8 @@
-json.array!(@users) do |user|
-  json.extract! user, :id, :nick
-  json.profile_img user.profile_photos.last
+json.array!(@recommend_users) do |recommend_user|
+  json.extract! recommend_user, :id, :nick
+  json.profile_img recommend_user.profile_photos.last
   
-  feeds = user.feeds.limit(3)
+  feeds = recommend_user.feeds.limit(3)
   feed_img = []
   feeds.each do |feed|
     feed_img.push feed.feed_photos.last

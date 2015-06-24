@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :be_requested_friends
   has_many :profile_photos
   has_many :comments
+  has_many :delete_recommend_users
   accepts_nested_attributes_for :profile_photos, reject_if: :profile_photos_attributes.blank?#, allow_destroy: true
   
   
