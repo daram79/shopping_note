@@ -6,5 +6,6 @@ class CreateLikes < ActiveRecord::Migration
       t.string  :like_type
       t.timestamps
     end
+    add_index :likes, :feed_id
   end
 end

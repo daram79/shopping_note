@@ -101,11 +101,13 @@ class FeedsController < ApplicationController
     like = Like.where(feed_id: params[:id], user_id: current_user.id).first
     unless like
       like_flg = true
-      Like.create(feed_id:params[:id] , user_id: current_user.id, like_type: "feed")
+      like = Like.create(feed_id:params[:id] , user_id: current_user.id, like_type: "feed")
     else
       like.destroy
       like_flg = false
     end
+    like_count = Like.where(feed_id:params[:id]).count
+    like.feed.update(like_count: like_count)
     render json: {like_flg: like_flg}
   end
   
@@ -121,6 +123,9 @@ class FeedsController < ApplicationController
   
   def add_comment
     comment = Comment.create(feed_id:params[:id] , user_id: current_user.id, content: params[:comment_content])
+    comment_count = Comment.where(feed_id:params[:id]).count
+    comment.feed.update(comment_count: comment_count)
+    
     photo_url = current_user.profile_photos.first.image.thumb.url
     render json: {comment_content: comment.content, photo_url: photo_url, user_nick: current_user.nick}
   end

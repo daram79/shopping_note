@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20150624014825) do
     t.integer  "feed_type_id"
     t.text     "content"
     t.text     "html_content"
+    t.integer  "like_count",    default: 0
+    t.integer  "comment_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -93,6 +95,8 @@ ActiveRecord::Schema.define(version: 20150624014825) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "likes", ["feed_id"], name: "index_likes_on_feed_id", using: :btree
 
   create_table "main_feeds", force: true do |t|
     t.integer  "user_id"
