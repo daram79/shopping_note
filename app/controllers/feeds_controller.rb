@@ -26,7 +26,7 @@ class FeedsController < ApplicationController
     @feeds = Feed.where("id in (?) and feed_type_id <> 2", feed_ids).order('updated_at desc').limit(100)
     @time_word = Hash.new
     @feeds.each do |feed|
-      @time_word[feed.id] = push time_ago_in_words(a.created_at)
+      @time_word[feed.id] = time_ago_in_words(feed.created_at)
     end
     @current_user_id = current_user.id
   end
