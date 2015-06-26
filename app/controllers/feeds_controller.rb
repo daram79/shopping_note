@@ -1,5 +1,7 @@
 # coding : utf-8
 class FeedsController < ApplicationController
+  include ActionView::Helpers::DateHelper
+  
   protect_from_forgery :except => [:add_like]
   before_action :set_feed, only: [:show, :edit, :update, :destroy, :comment, :add_like]
   before_action :is_login?, only: [:index, :index_json]
@@ -22,6 +24,10 @@ class FeedsController < ApplicationController
     feed_ids = Feed.where(user_id: ids).pluck(:id)
     feed_ids.uniq!
     @feeds = Feed.where("id in (?) and feed_type_id <> 2", feed_ids).order('updated_at desc').limit(100)
+    @time_word = Hash.new
+    @feeds.each do |feed|
+      @time_word[feed.id] = push time_ago_in_words(a.created_at)
+    end
     @current_user_id = current_user.id
   end
 
