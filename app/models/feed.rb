@@ -38,7 +38,7 @@ class Feed < ActiveRecord::Base
   
   def self.create_tag(id, tags)
     tags.each do |tag|
-      FeedTag.create(feed_id: id, tag_name: _tag)
+      FeedTag.create(feed_id: id, tag_name: tag)
     end
   end
   
