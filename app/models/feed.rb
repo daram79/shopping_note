@@ -17,9 +17,7 @@ class Feed < ActiveRecord::Base
     if content_line.index("#")
       arr_line = content_line.split(" ")
       arr_line.each do |val|
-        if val.count("#") == 1
-          arr_tag.push val.gsub('#', '')
-        elsif val.count("#") > 1
+        if val.count("#") > 0
           arr_tag += val.split("#").reject(&:empty?)
         end
       end
@@ -43,12 +41,13 @@ class Feed < ActiveRecord::Base
   end
   
   def self.make_html(content, tags)
+    debugger
     html_content = content.clone
     html_content.gsub!(" ", "&nbsp;") #개행삭제
     html_content.gsub!(/(\r\n|\r|\n)/, "<br />")
     tags.each do |tag|
       _tag = "#" + tag
-      html_content.gsub!(tag, " <b><a href='search://#{tag}'>#{_tag}</a></b>")
+      html_content.gsub!(_tag, " <b><a href='search://#{tag}'>#{_tag}</a></b>")
     end
     html_content
   end
