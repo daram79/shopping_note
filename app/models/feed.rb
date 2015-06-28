@@ -17,7 +17,11 @@ class Feed < ActiveRecord::Base
     if content_line.index("#")
       arr_line = content_line.split(" ")
       arr_line.each do |val|
-        arr_tag.push val if val.index("#")
+        if val.count("#") == 1
+          arr_tag.push val.gsub('#', '')
+        elsif val.count("#") > 1
+          arr_tag += val.split("#").reject(&:empty?)
+        end
       end
     end
     ret_arr = arr_tag.uniq
@@ -34,7 +38,6 @@ class Feed < ActiveRecord::Base
   
   def self.create_tag(id, tags)
     tags.each do |tag|
-      _tag = tag.gsub('#', '')
       FeedTag.create(feed_id: id, tag_name: _tag)
     end
   end
@@ -44,8 +47,8 @@ class Feed < ActiveRecord::Base
     html_content.gsub!(" ", "&nbsp;") #개행삭제
     html_content.gsub!(/(\r\n|\r|\n)/, "<br />")
     tags.each do |tag|
-      _tag = tag.gsub('#', '')
-      html_content.gsub!(tag, " <b><a href='search://#{_tag}'>#{tag}</a></b>")
+      _tag = "#" + tag
+      html_content.gsub!(tag, " <b><a href='search://#{tag}'>#{_tag}</a></b>")
     end
     html_content
   end
