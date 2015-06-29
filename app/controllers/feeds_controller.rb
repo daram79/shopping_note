@@ -39,6 +39,14 @@ class FeedsController < ApplicationController
       sign_in user if user
     end
     @item_photo = @feed.feed_photos[0]
+    @time_word = time_ago_in_words(@feed.created_at)
+    @feed.user.id
+    current_user_friend = current_user.user_relations.where(friend_user_id: @feed.user.id)
+    if (current_user_friend.blank?)
+      @is_following = false;
+    else
+      @is_following = true;
+    end
   end
 
   # GET /feeds/new

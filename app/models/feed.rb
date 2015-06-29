@@ -41,7 +41,6 @@ class Feed < ActiveRecord::Base
   end
   
   def self.make_html(content, tags)
-    debugger
     html_content = content.clone
     html_content.gsub!(" ", "&nbsp;") #개행삭제
     html_content.gsub!(/(\r\n|\r|\n)/, "<br />")
