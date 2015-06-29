@@ -2,8 +2,10 @@ class FriendsController < ApplicationController
   protect_from_forgery :except => [:add, :following, :unfollowing]
   
   def index
-    friend_ids = current_user.user_relations.pluck(:friend_user_id)
-    ids = User.all.pluck(:id)
+    # today = Time.now.utc.to_date
+    search_start_day = Time.now.utc.to_date - 7
+    ids = Feed.where("created_at > #{search_start_day}").group(:user_id).pluck(:user_id)
+    # ids = User.all.pluck(:id)
     except_user_ids = DeleteRecommendUser.get_excep_user_ids(current_user)
     ids = ids - except_user_ids
     @recommend_users = User.where("id in (?)", ids.sample(10))
