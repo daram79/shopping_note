@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :alrams do
     collection do
       get "get_alram_data"
+      put "phone_alram_on"
+      put "phone_alram_off"
     end
   end
 
@@ -75,11 +77,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       devise_scope :user do
-        post 'registrations' => 'registrations#create', :as => 'register'
-        post 'sessions' => 'sessions#create', :as => 'login'
-        delete 'sessions' => 'sessions#destroy', :as => 'logout'
-        post 'facebookLogin' => 'facebook#login', :as => 'fb_login'
-        post 'facebook' => 'facebook#create', :as => 'fb_create'
+        post    'registrations' => 'registrations#create', :as => 'register'
+        # put     'userEdit' => 'registrations#update', :as => 'user_edit'
+        put     'userEdit' => 'sessions#update', :as => 'user_edit'
+        put     'userEditPW' => 'sessions#change_pw', :as => 'user_edit_pw'
+        post    'sessions' => 'sessions#create', :as => 'login'
+        delete  'sessions' => 'sessions#destroy', :as => 'logout'
+        post    'facebookLogin' => 'facebook#login', :as => 'fb_login'
+        post    'facebook' => 'facebook#create', :as => 'fb_create'
       end
     end
   end

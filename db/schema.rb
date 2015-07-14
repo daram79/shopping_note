@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624014825) do
+ActiveRecord::Schema.define(version: 20150713053605) do
 
   create_table "alrams", force: true do |t|
     t.integer  "alram_id"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20150624014825) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "comments", ["feed_id"], name: "index_comments_on_feed_id", using: :btree
 
   create_table "delete_recommend_users", force: true do |t|
     t.integer  "user_id"
@@ -142,6 +144,10 @@ ActiveRecord::Schema.define(version: 20150624014825) do
     t.string   "authentication_token"
     t.text     "registration_id"
     t.boolean  "gender",                 default: false
+    t.boolean  "alram_on",               default: true
+    t.string   "word",                   default: ""
   end
+
+  add_index "users", ["birthday"], name: "index_users_on_birthday", using: :btree
 
 end

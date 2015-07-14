@@ -39,6 +39,18 @@ class AlramsController < ApplicationController
   def get_alram_data
     @alram = Alram.where(user_id: current_user.id, send_flg: true).last
   end
+  
+  def phone_alram_on
+    current_user.alram_on = true
+    current_user.save
+    render :json => {alram_type: true}
+  end
+  
+  def phone_alram_off
+    current_user.alram_on = false
+    current_user.save
+    render :json => {alram_type: false}
+  end
 
   private
     def set_alram

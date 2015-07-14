@@ -30,7 +30,8 @@ class ProfilePhotosController < ApplicationController
       if @profile_photo.save
         #format.html { redirect_to @profile_photo, notice: 'Profile photo was successfully created.' }
         format.html { redirect_to controller: "settings", action: "index" }
-        format.json { render :show, status: :created, location: @profile_photo }
+        # format.json { render :show, status: :created, location: @profile_photo }
+        format.json { render json: { :success => true, :data => @profile_photo } }
       else
         format.html { render :new }
         format.json { render json: @profile_photo.errors, status: :unprocessable_entity }

@@ -30,4 +30,26 @@ class Api::V1::SessionsController < Devise::SessionsController
                       :info => "Login Failed",
                       :data => {} }
   end
+  
+  def update
+    current_user.word = params[:user_word]
+    current_user.nick = params[:user_name]
+    current_user.save
+    if params[:photo_update] == "true"
+      
+    end
+    render :json => {user_word: current_user.word, user_name: current_user.nick}
+  end
+  
+  def change_pw
+    if current_user.valid_password?(params[:current_pw])
+      current_user.password = params[:new_pw]
+      current_user.password_confirmation = params[:new_pw_ok]
+      current_user.save
+      render :json => {:success => true}
+    else
+      render :json => {:success => false}
+    end
+  end
+  
 end
