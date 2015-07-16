@@ -15,6 +15,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def personal_information_policy
     
   end
+  
+  def notice
+    @notices = Notice.all
+  end
     
   
   protected

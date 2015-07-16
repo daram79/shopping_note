@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :notices
   
   resources :alrams do
     collection do
@@ -67,6 +68,7 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     post 'users/:id/set_registration_id', :to => "users/sessions#set_registration_id"
+    get 'users/notice', :to => "users/registrations#notice"
     get 'users/agreement', :to => "users/registrations#agreement"
     get 'users/personal_information_policy', :to => "users/registrations#personal_information_policy"
     get 'users/:id/info', :to => "users/sessions#info"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713053605) do
+ActiveRecord::Schema.define(version: 20150716071804) do
 
   create_table "alrams", force: true do |t|
     t.integer  "alram_id"
@@ -105,6 +105,13 @@ ActiveRecord::Schema.define(version: 20150713053605) do
     t.integer  "main_id"
     t.string   "main_type"
     t.string   "sub_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notices", force: true do |t|
+    t.string   "title"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
