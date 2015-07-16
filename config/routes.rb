@@ -67,11 +67,12 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     post 'users/:id/set_registration_id', :to => "users/sessions#set_registration_id"
+    get 'users/agreement', :to => "users/registrations#agreement"
+    get 'users/personal_information_policy', :to => "users/registrations#personal_information_policy"
     get 'users/:id/info', :to => "users/sessions#info"
     get 'users/:id/follower_list', :to => "users/sessions#follower_list"
     get 'users/:id/following_list', :to => "users/sessions#following_list"
     get 'users/:id/friend_count', :to => "users/sessions#friend_count"
-    
   end
   
   namespace :api do
