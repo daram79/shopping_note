@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def notice
-    @notices = Notice.all
+    @notices = Notice.all.order("id desc")
   end
     
   

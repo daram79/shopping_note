@@ -3,12 +3,12 @@
 		<% @notices.each do |notice| %>
 		<tr class='title' id='<%=notice.id%>'>
 			<td style="padding:10px 10px 0 10px;">
-				<span style="color:gray; font-size:16px;"><%= notice.title %></span>
+				<span style="color:gray; font-size:16px;"><%= raw notice.title.to_s.html_safe %></span>
 				<span style="color:gray; font-size:14px;">(<%=notice.created_at.strftime("%y/%m/%d")%>)</span>
 			</td>
 		</tr>
 		<tr class='content' id='content_<%=notice.id%>' style="display:none;">
-			<td style="padding:5px 10px 10px 15px ;"><span style="color:gray; font-size:14px;"><%=raw hbr(notice.content) %></span></td>
+			<td style="padding:5px 10px 10px 15px ;"><span style="color:gray; font-size:14px;"><%= raw hbr(notice.content.to_s.html_safe) %></span></td>
 		</tr>
 		<tr>
 			<td style="padding:10px 10px 0 10px; border-bottom:1px solid gray;"></td>
