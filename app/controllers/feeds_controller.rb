@@ -133,6 +133,7 @@ class FeedsController < ApplicationController
   
   def comment
     @comments = @feed.comments
+    @time_word = Hash.new
     @comments.each do |comment|
       @time_word[comment.id] = time_ago_in_words(comment.created_at)
     end
