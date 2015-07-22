@@ -1,4 +1,6 @@
 class MemberNotesController < ApplicationController
+  include ActionView::Helpers::DateHelper
+  
   before_action :set_member_note, only: [:show, :edit, :update, :destroy]
 
   # GET /member_notes
