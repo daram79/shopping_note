@@ -22,37 +22,37 @@
 en:
   datetime:
     distance_in_words:
-      half_a_minute: "30초"
+      half_a_minute: "30초 전"
       less_than_x_seconds:
-        one:   "1초"
+        one:   "1초 전"
         other: "%{count}초"
       x_seconds:
-        one:   "1초"
+        one:   "1초 전"
         other: "%{count}초"
       less_than_x_minutes:
-        one:   "1분"
-        other: "%{count}분"
+        one:   "1분 전"
+        other: "%{count}분 전"
       x_minutes:
-        one:   "1분"
-        other: "%{count}분"
+        one:   "1분 전"
+        other: "%{count}분 전"
       about_x_hours:
-        one:   "1시간"
-        other: "%{count}시간"
+        one:   "1시간 전"
+        other: "%{count}시간 전"
       x_days:
-        one:   "1일"
-        other: "%{count}일"
+        one:   "1일 전"
+        other: "%{count}일 전"
       about_x_months:
-        one:   "1달"
-        other: "%{count}달"
+        one:   "1달 전"
+        other: "%{count}달 전"
       x_months:
-        one:   "1달"
-        other: "%{count}달"
+        one:   "1달 전"
+        other: "%{count}달 전"
       almost_x_years:
-        one:   "１년"
-        other: "%{count}년"
+        one:   "１년 전"
+        other: "%{count}년 전"
       about_x_years:
-        one:   "1년"
-        other: "%{count}년"
+        one:   "1년 전"
+        other: "%{count}년 전"
       over_x_years:
         one:   "1년 이상"
         other: "%{count}년 이상"

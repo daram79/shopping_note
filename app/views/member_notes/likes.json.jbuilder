@@ -1,5 +1,6 @@
 json.array!(@member_notes) do |feed|
   json.extract! feed, :id, :user_id, :content, :html_content, :created_at
+  json.time_word @time_word[feed.id]
   json.user feed.user
   json.profile_photo feed.user.profile_photos[0]
   json.feed_photo feed.feed_photos[0]
